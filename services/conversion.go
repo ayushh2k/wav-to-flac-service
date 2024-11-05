@@ -6,6 +6,8 @@ import (
 	"bytes"
 	"fmt"
 	"os/exec"
+
+	"wav-to-flac-service/utils"
 )
 
 func WavToFlac(wavData []byte) ([]byte, error) {
@@ -19,6 +21,7 @@ func WavToFlac(wavData []byte) ([]byte, error) {
 
 	err := cmd.Run()
 	if err != nil {
+		utils.LogError("ffmpeg", err)
 		return nil, fmt.Errorf("ffmpeg error: %v", err)
 	}
 

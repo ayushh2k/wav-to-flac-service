@@ -3,10 +3,10 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
 
 	"wav-to-flac-service/services"
+	"wav-to-flac-service/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -21,7 +21,7 @@ var upgrader = websocket.Upgrader{
 func StreamHandler(c *gin.Context) {
 	ws, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
-		log.Println("upgrade:", err)
+		utils.LogError("upgrade", err)
 		return
 	}
 	defer ws.Close()
@@ -30,21 +30,21 @@ func StreamHandler(c *gin.Context) {
 		// Read WAV data from WebSocket
 		_, message, err := ws.ReadMessage()
 		if err != nil {
-			log.Println("read:", err)
+			utils.LogError("read", err)
 			break
 		}
 
 		// Convert WAV to FLAC using service
 		flacData, err := services.WavToFlac(message)
 		if err != nil {
-			log.Println("wavToFlac:", err)
+			utils.LogError("wavToFlac", err)
 			continue
 		}
 
 		// Send FLAC data back to client
 		err = ws.WriteMessage(websocket.BinaryMessage, flacData)
 		if err != nil {
-			log.Println("write:", err)
+			utils.LogError("write", err)
 			break
 		}
 	}
