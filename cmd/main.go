@@ -1,4 +1,5 @@
-// main.go
+// cmd/main.go
+
 package main
 
 import (
@@ -12,10 +13,8 @@ import (
 func main() {
 	r := gin.Default()
 
-	// Define routes
-	r.POST("/convert", handlers.ConvertWavToFlac)
+	r.GET("/stream", handlers.StreamHandler)
 
-	// Start the server
 	if err := r.Run(":8080"); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
