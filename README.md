@@ -182,3 +182,29 @@ sequenceDiagram
 - Configurable buffer sizes for optimal performance tuning
 - Efficient error handling and resource cleanup
 
+# Running the Client
+
+## Steps
+
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/ayushh2k/wav-to-flac-service.git
+    cd wav-to-flac-service
+    ```
+
+2. **Navigate to the client directory**
+    ```bash
+    cd client
+    ```
+
+3. **Run the client**
+    ```bash
+    go run main.go -input ./assets/test.wav -output ./assets    
+    ```
+
+## Command-Line Flags
+
+- `-input`: Path to the input WAV file
+- `-output`: Output directory for the converted FLAC files (default: current directory)
+
+This command will save the output flac stream in the ./assets directory when the client is run.

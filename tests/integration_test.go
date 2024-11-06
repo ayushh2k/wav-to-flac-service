@@ -11,7 +11,7 @@ import (
 )
 
 func TestWebSocketStream(t *testing.T) {
-	wavData, err := os.ReadFile("../harvard.wav")
+	wavData, err := os.ReadFile("../assets/harvard.wav")
 	if err != nil {
 		t.Fatalf("Failed to read test WAV file: %v", err)
 	}
