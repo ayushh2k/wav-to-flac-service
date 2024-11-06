@@ -22,3 +22,25 @@ Run unit tests using `go test ./tests/...`.
 
 ## Integration Tests
 Run integration tests using `go test ./tests/... -tags=integration`.
+
+
+sequenceDiagram
+    participant Client
+    participant WebSocket
+    participant Server
+    participant Converter
+    
+    Client->>WebSocket: Connect
+    WebSocket->>Server: Establish Connection
+    
+    loop Streaming Process
+        Client->>WebSocket: Send WAV Chunk
+        WebSocket->>Server: Receive WAV Chunk
+        Server->>Converter: Process WAV Chunk
+        Converter->>Server: Return FLAC Chunk
+        Server->>WebSocket: Send FLAC Chunk
+        WebSocket->>Client: Receive FLAC Chunk
+    end
+    
+    Client->>WebSocket: Close Connection
+    WebSocket->>Server: End Stream

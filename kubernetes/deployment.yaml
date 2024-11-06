@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wav-to-flac-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wav-to-flac-service
+  template:
+    metadata:
+      labels:
+        app: wav-to-flac-service
+    spec:
+      containers:
+      - name: wav-to-flac-service
+        image: meap2sick/wav-to-flac-service:latest
+        ports:
+        - containerPort: 8080
